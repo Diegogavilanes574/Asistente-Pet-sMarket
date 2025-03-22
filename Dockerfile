@@ -1,5 +1,5 @@
-# Utiliza la imagen de Flutter con la versión correcta
-FROM cirrusci/flutter:3.4.0
+# Utiliza la imagen oficial de Flutter con una versión compatible
+FROM google/flutter:latest
 
 # Establece el directorio de trabajo
 WORKDIR /app
