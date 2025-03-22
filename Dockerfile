@@ -5,7 +5,7 @@ FROM python:3.9-slim
 RUN apt-get update --allow-releaseinfo-change && \
     apt-get install -y software-properties-common && \
     apt-get update && \
-    apt-get install -y build-essential libssl-dev libffi-dev default-libmysqlclient-dev python3-dev gcc && \
+    apt-get install -y build-essential libssl-dev libffi-dev default-libmysqlclient-dev python3-dev gcc mariadb-dev && \
     apt-get clean
 
 # Establecer el directorio de trabajo
