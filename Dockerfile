@@ -1,27 +1,24 @@
-# Utiliza una imagen base más completa
-FROM python:3.9-buster
+# Utiliza una imagen de Python ligera
+FROM python:3.9-slim
 
-# Actualizar y agregar repositorios
+# Actualizar y agregar repositorios necesarios
 RUN apt-get update --allow-releaseinfo-change && \
     apt-get install -y software-properties-common && \
     apt-get update && \
-    apt-get install -y build-essential libssl-dev libffi-dev libmysqlclient-dev python3-dev gcc && \
+    apt-get install -y build-essential libssl-dev libffi-dev default-libmysqlclient-dev python3-dev gcc && \
     apt-get clean
 
-# Crear el directorio de trabajo
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar el archivo de requerimientos
-COPY requirements.txt .
-
-# Instalar las dependencias del proyecto
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copiar el resto de los archivos del proyecto
+# Copiar los archivos del proyecto al contenedor
 COPY . .
 
-# Exponer el puerto de la aplicación Flask
+# Instalar dependencias
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Exponer el puerto de la aplicación
 EXPOSE 5000
 
-# Comando para ejecutar el servidor Flask
+# Ejecutar el servidor Flask
 CMD ["python", "server.py"]
