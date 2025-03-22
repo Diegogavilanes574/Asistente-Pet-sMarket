@@ -1,20 +1,17 @@
-# Utiliza la imagen oficial de Flutter con una versión compatible
-FROM google/flutter:latest
+# Utiliza una imagen de Python ligera
+FROM python:3.9-slim
 
-# Establece el directorio de trabajo
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos de configuración de Flutter
-COPY pubspec.* ./
-
-# Instala las dependencias del proyecto
-RUN flutter pub get
-
-# Copia el resto del proyecto
+# Copiar los archivos del proyecto al contenedor
 COPY . .
 
-# Compila la aplicación
-RUN flutter build apk --release
+# Instalar dependencias
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Comando para iniciar el servidor
-CMD ["flutter", "run"]
+# Exponer el puerto de la aplicación
+EXPOSE 5000
+
+# Ejecutar el servidor Flask
+CMD ["python", "server.py"]
